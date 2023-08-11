@@ -26,4 +26,13 @@ public class Labels extends JLabel
 		this.setForeground(Color.black);
 		
 	}
+	
+	public Labels(int x,int y, int w, int h)
+	{
+		
+		this.setSize(w,h);
+		this.setLocation(x,y);
+		this.setForeground(Color.black);
+		
+	}
 }

@@ -1,6 +1,7 @@
 package com.AdminSide;
 
-import javax.swing.ImageIcon;
+
+import javax.swing.JLabel;
 
 import com.misc.Buttons;
 import com.misc.Frames;
@@ -33,6 +34,10 @@ public class Run extends ProjectObj{
 		frame.add(patNameInput);
 		frame.add(dateOfApp);
 		frame.add(timeOfApp);
+		frame.add(imgLabel);
+		
+		
+		
 		
 		
 		System.out.println("All components add to the frame succesfully");
@@ -61,8 +66,8 @@ public class Run extends ProjectObj{
 		timeOfApp=new Inputs(571,413,244,36);
 		
 //		appImageUrl=Run.class.getResource("NavBar_Logo.png");
-//		appImageIcon=new ImageIcon(appImageUrl);
-		
+		JLabel imgLabel=new JLabel(appImageIcon);
+
 		System.out.println("Components initialized successfully");
 	}
 }

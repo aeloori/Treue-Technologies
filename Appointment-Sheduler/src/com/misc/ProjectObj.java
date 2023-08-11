@@ -5,7 +5,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 
 
@@ -38,10 +38,13 @@ public class ProjectObj{
     public static Labels dateOfLabel;
     public static Labels timeOfLabel;
     
+//    image panel
+    public static Labels imgLabel;
+    
 //    imgurl
     public static URL appImageUrl;
     
 //    ImageIcon
-    public static Icon appImageIcon;
+    public static ImageIcon appImageIcon;
     
 }
