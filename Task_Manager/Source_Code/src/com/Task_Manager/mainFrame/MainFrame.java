@@ -1,10 +1,12 @@
 package com.Task_Manager.mainFrame;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 public class MainFrame
@@ -28,6 +31,8 @@ public class MainFrame
 	private static DefaultListModel<String> task;
 	private static JList<String> taskList;
 	private static JScrollPane taskListScroll;
+	
+	private static JPanel leftPanel;
 	
 //	task name
 	private static JLabel taskName;
@@ -59,10 +64,42 @@ public class MainFrame
 	final private static Font fontM=new Font("Tahoma",Font.PLAIN,16);
 	final private static Font fontB=new Font("Tahoma",Font.BOLD,20);
 	
+	public static void addTask()
+	{
+		addTaskBtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				SwingUtilities.invokeLater(new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						frame.add(leftPanel);
+						frame.validate();
+	                    frame.repaint();
+					}
+				});
+			}
+		});
+		
+		setTask.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				task.addElement(taskNameInput.getText());
+				frame.remove(leftPanel);
+				frame.validate();
+				frame.repaint();
+			}
+		});
+	}
+	
 	public static void run()
 	{
 		initialize();
 		add();
+		addTask();
 	}
 
 	private static void add() {
@@ -70,22 +107,25 @@ public class MainFrame
 		listPanel.add(taskList);
 		listPanel.add(taskListScroll);
 		frame.add(listPanel);
-		frame.add(taskName);
-		frame.add(taskNameInput);
-		frame.add(starBtn);
-		frame.add(taskDesc);
-		frame.add(taskDescBox);
-		frame.add(startDate);
-		frame.add(startDateInput);
-		frame.add(endDate);
-		frame.add(endDateInput);
-		frame.add(ringtone);
-		frame.add(ringtoneInput);
-		frame.add(setTask);
+		
+//		right side
+		leftPanel.add(taskName);
+		leftPanel.add(taskNameInput);
+		leftPanel.add(starBtn);
+		leftPanel.add(taskDesc);
+		leftPanel.add(taskDescBox);
+		leftPanel.add(startDate);
+		leftPanel.add(startDateInput);
+		leftPanel.add(endDate);
+		leftPanel.add(endDateInput);
+		leftPanel.add(ringtone);
+		leftPanel.add(ringtoneInput);
+		leftPanel.add(setTask);
+//		frame.add(leftPanel);
 	}
 
 	private static void initialize() {
-		UIManager.put("Button.select", "#219EBC");
+//		UIManager.put("Button.select", "#219EBC");
 		
 		
 //		initialize Main frame
@@ -112,34 +152,45 @@ public class MainFrame
 		
 //		list
 		task=new DefaultListModel<>(); 
+		
 		taskList = new JList<>(task);
+//		taskList.setPreferredSize(new Dimension(200,200));
+		taskList.setBounds(0,0,407,580);
 		taskList.setFixedCellHeight(50);
+		taskList.setBorder(BorderFactory.createLineBorder(Color.decode("#121212"),1, true));
 		
 //		scrollpane for tasklist
 		taskListScroll=new JScrollPane(taskList);
 		taskListScroll.setBounds(10,10, 387, 560);
 		taskListScroll.setBorder(null);
 		
+//		left side panel
+		leftPanel=new JPanel();
+		leftPanel.setBorder(null);
+		leftPanel.setBounds(459, 32, 796, 628);
+		leftPanel.setBackground(Color.white);
+		leftPanel.setLayout(null);
+		
+		
 //		task input box with label
 		
 		//label
 		taskName =new JLabel();
-		taskName.setBounds(492, 90, 105, 24);
+		taskName.setBounds(33, 57, 105, 24);
 		taskName.setText("Task Name");
 		taskName.setFont(font);
 
 		//box
 		taskNameInput=new JTextField();
-		taskNameInput.setBounds(492, 140, 326, 44);
+		taskNameInput.setBounds(33, 107, 326, 44);
 		taskNameInput.setColumns(10);
 		taskNameInput.setBackground(Color.decode("#D9D9D9"));
 		taskNameInput.setFont(fontM);
 		taskNameInput.setBorder(null);
-		taskNameInput.addActionListener(e);
 		
 		//task flag
 		starBtn=new JButton();
-		starBtn.setBounds(851,140,44,44);
+		starBtn.setBounds(392,107,44,44);
 		starBtn.setBackground(Color.decode("#219EBC"));
 		starBtn.setFocusable(false);
 		starBtn.setBorder(null);
@@ -149,13 +200,13 @@ public class MainFrame
 		
 		//label
 		taskDesc =new JLabel();
-		taskDesc.setBounds(492, 220, 101,24);
-		taskDesc.setText("Task Name");
+		taskDesc.setBounds(33, 187, 150,24);
+		taskDesc.setText("Task Discription");
 		taskDesc.setFont(font);
 		
 		//desc box
 		taskDescBox=new	JTextArea();
-		taskDescBox.setBounds(492, 280, 452, 101);
+		taskDescBox.setBounds(33, 247, 452, 101);
 		taskDescBox.setBackground(Color.decode("#D9D9D9"));
 		taskDescBox.setFont(fontM);
 		taskDescBox.setBorder(null);
@@ -164,13 +215,13 @@ public class MainFrame
 		
 		//label
 		startDate =new JLabel();
-		startDate.setBounds(492,430, 122,24);
+		startDate.setBounds(33,397, 122,24);
 		startDate.setText("Date of start");
 		startDate.setFont(font);
 		
 		//input
 		startDateInput=new JTextField();
-		startDateInput.setBounds(674,420, 326, 44);
+		startDateInput.setBounds(215,387, 326, 44);
 		startDateInput.setColumns(16);
 		startDateInput.setBackground(Color.decode("#D9D9D9"));
 		startDateInput.setFont(fontM);
@@ -179,13 +230,13 @@ public class MainFrame
 //		date of end
 		//label
 		endDate =new JLabel();
-		endDate.setBounds(492, 510, 122,24);
+		endDate.setBounds(33, 477, 122,24);
 		endDate.setText("End date");
 		endDate.setFont(font);
 		
 		//input
 		endDateInput=new JTextField();
-		endDateInput.setBounds(674,500, 326, 44);
+		endDateInput.setBounds(215,467, 326, 44);
 		endDateInput.setColumns(16);
 		endDateInput.setBackground(Color.decode("#D9D9D9"));
 		endDateInput.setFont(fontM);
@@ -194,13 +245,13 @@ public class MainFrame
 //		Ringtone
 		//label
 		ringtone =new JLabel();
-		ringtone.setBounds(492, 590, 87	,24);
+		ringtone.setBounds(33, 557, 87	,24);
 		ringtone.setText("Ringtone");
 		ringtone.setFont(font);
 		
 		//input
 		ringtoneInput=new JTextField();
-		ringtoneInput.setBounds(674,580, 326, 44);
+		ringtoneInput.setBounds(215,547, 326, 44);
 		ringtoneInput.setColumns(16);
 		ringtoneInput.setBackground(Color.decode("#D9D9D9"));
 		ringtoneInput.setFont(fontM);
@@ -210,7 +261,7 @@ public class MainFrame
 		setTask=new JButton("SET TASK");
 		setTask.setFont(fontB);
 		setTask.setBackground(Color.decode("#219EBC"));
-		setTask.setBounds(1060,576,163,51);
+		setTask.setBounds(601,543,163,51);
 		setTask.setFocusable(false);
 		setTask.setBorder(null);
 	}
