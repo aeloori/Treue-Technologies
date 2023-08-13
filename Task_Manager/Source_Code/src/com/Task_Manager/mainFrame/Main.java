@@ -12,6 +12,7 @@ public class Main {
 		public void run() 
 		{
 				MainFrame.run();
+				Functionality.main();
 		}});
 	}
 }

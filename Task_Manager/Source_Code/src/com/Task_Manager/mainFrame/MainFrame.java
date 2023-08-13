@@ -1,12 +1,11 @@
 package com.Task_Manager.mainFrame;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BorderFactory;
+//import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,46 +16,49 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
+//import javax.swing.UIManager;
 
 public class MainFrame
 {
 //	components
-	private static  JFrame frame;
+	protected static  JFrame frame;
 	
-	private static JButton addTaskBtn;
+	protected static JButton addTaskBtn;
 	
 //	taskList
-	private  static JPanel listPanel;
-	private static DefaultListModel<String> task;
-	private static JList<String> taskList;
-	private static JScrollPane taskListScroll;
+	protected  static JPanel listPanel;
+	protected static DefaultListModel<String> task;
+	protected static JList<String> taskList;
+	protected static JScrollPane taskListScroll;
 	
-	private static JPanel leftPanel;
+	protected static JPanel leftPanel1;
+//	protected static JPanel leftPanel2;
 	
 //	task name
-	private static JLabel taskName;
-	private static JTextField taskNameInput;
-	private static JButton starBtn;
+	protected static JLabel taskName;
+	protected static JTextField taskNameInput;
+	protected static JButton starBtn;
 
 //	taskdesc
-	private static JLabel taskDesc;
-	private static JTextArea taskDescBox;
+	protected static JLabel taskDesc;
+	protected static JTextArea taskDescBox;
 	
 //	startdate
-	private static JLabel startDate;
-	private static JTextField startDateInput;
+	protected static JLabel startDate;
+	protected static JTextField startDateInput;
 	
 //	enddate
-	private static JLabel endDate;
-	private static JTextField endDateInput;
+	protected static JLabel endDate;
+	protected static JTextField endDateInput;
 	
 //	ringtone set
-	private static JLabel ringtone;
-	private static JTextField ringtoneInput;
+	protected static JLabel ringtone;
+	protected static JTextField ringtoneInput;
 	
 //	set task
-	private static JButton setTask;
+	protected static JButton setTask;
+	protected static JButton updateTask;
+	protected static JButton deleteTask;
 	
 	
 	
@@ -64,7 +66,7 @@ public class MainFrame
 	final private static Font fontM=new Font("Tahoma",Font.PLAIN,16);
 	final private static Font fontB=new Font("Tahoma",Font.BOLD,20);
 	
-	public static void addTask()
+	final private static void addTask()
 	{
 		addTaskBtn.addActionListener(new ActionListener() {
 			
@@ -74,57 +76,77 @@ public class MainFrame
 					
 					@Override
 					public void run() {
-						// TODO Auto-generated method stub
-						frame.add(leftPanel);
+						taskList.clearSelection();
+						taskList.setEnabled(false);
+						Functionality.setInputFields();
+						
+						setTask.setVisible(true);
+						setTask.setEnabled(true);
+						deleteTask.setVisible(false);
+						deleteTask.setEnabled(false);
+						updateTask.setVisible(false);
+						updateTask.setEnabled(false);
+						frame.add(leftPanel1);
 						frame.validate();
-	                    frame.repaint();
+						frame.repaint();
+//						taskList.setEnabled(true);
 					}
 				});
 			}
 		});
 		
-		setTask.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				task.addElement(taskNameInput.getText());
-				frame.remove(leftPanel);
-				frame.validate();
-				frame.repaint();
-			}
-		});
+//		taskList.setEnabled(true);
 	}
 	
-	public static void run()
+	final public static void run()
 	{
 		initialize();
 		add();
 		addTask();
 	}
 
-	private static void add() {
+	final private static void add() {
 		frame.add(addTaskBtn);
 		listPanel.add(taskList);
 		listPanel.add(taskListScroll);
 		frame.add(listPanel);
 		
 //		right side
-		leftPanel.add(taskName);
-		leftPanel.add(taskNameInput);
-		leftPanel.add(starBtn);
-		leftPanel.add(taskDesc);
-		leftPanel.add(taskDescBox);
-		leftPanel.add(startDate);
-		leftPanel.add(startDateInput);
-		leftPanel.add(endDate);
-		leftPanel.add(endDateInput);
-		leftPanel.add(ringtone);
-		leftPanel.add(ringtoneInput);
-		leftPanel.add(setTask);
-//		frame.add(leftPanel);
+		//panel for add task
+		leftPanel1.add(taskName);
+		leftPanel1.add(taskNameInput);
+		leftPanel1.add(starBtn);
+		leftPanel1.add(taskDesc);
+		leftPanel1.add(taskDescBox);
+		leftPanel1.add(startDate);
+		leftPanel1.add(startDateInput);
+		leftPanel1.add(endDate);
+		leftPanel1.add(endDateInput);
+		leftPanel1.add(ringtone);
+		leftPanel1.add(ringtoneInput);
+		leftPanel1.add(setTask);
+		leftPanel1.add(updateTask);
+		leftPanel1.add(deleteTask);
+		
+		//panel for existing task
+//		leftPanel2.add(taskName);
+//		leftPanel2.add(taskNameInput);
+//		leftPanel2.add(starBtn);
+//		leftPanel2.add(taskDesc);
+//		leftPanel2.add(taskDescBox);
+//		leftPanel2.add(startDate);
+//		leftPanel2.add(startDateInput);
+//		leftPanel2.add(endDate);
+//		leftPanel2.add(endDateInput);
+//		leftPanel2.add(ringtone);
+//		leftPanel2.add(ringtoneInput);
+//		leftPanel2.add(deleteTask);
+//		leftPanel2.add(updateTask);
+		
+		
 	}
 
-	private static void initialize() {
+	final private static void initialize() {
 //		UIManager.put("Button.select", "#219EBC");
 		
 		
@@ -155,9 +177,15 @@ public class MainFrame
 		
 		taskList = new JList<>(task);
 //		taskList.setPreferredSize(new Dimension(200,200));
+		taskList.setBackground(Color.decode("#a2d2ff"));
+		taskList.setForeground(Color.black);
+		taskList.setSelectionBackground(Color.decode("#264653"));
+		taskList.setSelectionForeground(Color.white);
+//		taskList.setBorder(null);
 		taskList.setBounds(0,0,407,580);
 		taskList.setFixedCellHeight(50);
-		taskList.setBorder(BorderFactory.createLineBorder(Color.decode("#121212"),1, true));
+		taskList.setFocusable(false);
+//		taskList.setBorder(BorderFactory.createLineBorder(Color.decode("#121212"),1, true));
 		
 //		scrollpane for tasklist
 		taskListScroll=new JScrollPane(taskList);
@@ -165,12 +193,19 @@ public class MainFrame
 		taskListScroll.setBorder(null);
 		
 //		left side panel
-		leftPanel=new JPanel();
-		leftPanel.setBorder(null);
-		leftPanel.setBounds(459, 32, 796, 628);
-		leftPanel.setBackground(Color.white);
-		leftPanel.setLayout(null);
+		//left panel for adding task
+		leftPanel1=new JPanel();
+		leftPanel1.setBorder(null);
+		leftPanel1.setBounds(459, 32, 796, 628);
+		leftPanel1.setBackground(Color.white);
+		leftPanel1.setLayout(null);
 		
+		//left panel for existing task edit
+//		leftPanel2=new JPanel();
+//		leftPanel2.setBorder(null);
+//		leftPanel2.setBounds(459, 32, 796, 628);
+//		leftPanel2.setBackground(Color.white);
+//		leftPanel2.setLayout(null);
 		
 //		task input box with label
 		
@@ -264,5 +299,21 @@ public class MainFrame
 		setTask.setBounds(601,543,163,51);
 		setTask.setFocusable(false);
 		setTask.setBorder(null);
+		
+//		upate button
+		updateTask=new JButton("Update Task");
+		updateTask.setFont(fontB);
+		updateTask.setBackground(Color.decode("#219EBC"));
+		updateTask.setBounds(601,543,163,51);
+		updateTask.setFocusable(false);
+		updateTask.setBorder(null);
+		
+//		delete button
+		deleteTask=new JButton("Delete Task");
+		deleteTask.setFont(fontB);
+		deleteTask.setBackground(Color.decode("#219EBC"));
+		deleteTask.setBounds(601,473,163,51);
+		deleteTask.setFocusable(false);
+		deleteTask.setBorder(null);
 	}
 }
