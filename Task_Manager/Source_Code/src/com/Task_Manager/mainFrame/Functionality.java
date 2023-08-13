@@ -1,5 +1,7 @@
 package com.Task_Manager.mainFrame;
 
+import java.awt.SystemTray;
+import java.awt.TrayIcon.MessageType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -7,9 +9,9 @@ import java.awt.event.MouseEvent;
 import java.util.LinkedList;
 
 public class Functionality extends MainFrame{
-	static LinkedList<String> tasksNames;
+	public static LinkedList<String> tasksNames;
 	static LinkedList<String> taskDescText;
-	static LinkedList<String> startDates;
+	public static  LinkedList<String> startDates;
 	static LinkedList<String> endDates;
 	static LinkedList<String> ringtones;
 	static LinkedList<Integer> priorities;
@@ -29,14 +31,16 @@ public class Functionality extends MainFrame{
 			public void mouseClicked(MouseEvent e)
 			{
 				String selected="";
-				 if (taskList.getSelectedIndex() != -1) {                       
-		             selected = taskList.getSelectedValue();   
-		             System.out.println("Selected list items is "+selected); 
-		             frame.add(leftPanel1);
-		             frame.validate();
-		             frame.repaint();
-		             setInputFields(taskList.getSelectedIndex());
-		          } 
+//				 if (taskList.getSelectedIndex() != -1) {                       
+//		             
+//		          } 
+				selected = taskList.getSelectedValue();   
+	             System.out.println("Selected list items is "+selected); 
+	             frame.add(leftPanel1);
+	             frame.validate();
+	             frame.repaint();
+	             setInputFields(taskList.getSelectedIndex());
+	             
 			}
 			
 		});

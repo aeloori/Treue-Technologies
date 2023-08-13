@@ -79,7 +79,6 @@ public class MainFrame
 						taskList.clearSelection();
 						taskList.setEnabled(false);
 						Functionality.setInputFields();
-						
 						setTask.setVisible(true);
 						setTask.setEnabled(true);
 						deleteTask.setVisible(false);

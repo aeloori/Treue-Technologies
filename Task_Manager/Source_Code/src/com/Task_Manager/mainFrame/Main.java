@@ -6,11 +6,15 @@ public class Main {
 
 	public static void main(String[] args) throws Exception 
 	{
-   	 EventQueue.invokeLater(new Runnable() {
+		MultiThreadingthing clock =new MultiThreadingthing();
+//		Thread clock= new Thread(new MultiThreadingthing());
+		clock.start();
+		EventQueue.invokeLater(new Runnable() {
 			
 			@Override
 		public void run() 
 		{
+				
 				MainFrame.run();
 				Functionality.main();
 		}});
