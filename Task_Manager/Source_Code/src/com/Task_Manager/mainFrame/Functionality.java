@@ -1,7 +1,5 @@
 package com.Task_Manager.mainFrame;
 
-import java.awt.SystemTray;
-import java.awt.TrayIcon.MessageType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -139,7 +137,6 @@ public class Functionality extends MainFrame{
 		}
 
 	static void setInputFields() {
-		// TODO Auto-generated method stub
 		taskNameInput.setText("");
 		taskDescBox.setText("");
 		startDateInput.setText(null);
@@ -148,7 +145,6 @@ public class Functionality extends MainFrame{
 	}
 	
 	protected static void setInputFields(int i) {
-		// TODO Auto-generated method stub
 		taskNameInput.setText(tasksNames.get(i));
 		tempTaskName=tasksNames.get(i);
 		

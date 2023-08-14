@@ -49,6 +49,7 @@ public class MultiThreadingthing  extends Thread{
 	            tray.add(trayIcon);
 	            trayIcon.displayMessage("Reminder : Task "+Functionality.tasksNames.get(Functionality.startDates.indexOf(time)), Functionality.taskDescText.get(Functionality.startDates.indexOf(time)), MessageType.INFO);
 	        }
+	        
 	        if(Functionality.endDates.contains(time))
 	        {
 	        	System.out.println("Task ended");
