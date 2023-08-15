@@ -4,12 +4,9 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.URL;
 
 //import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -62,11 +59,6 @@ public class MainFrame
 	protected static JButton setTask;
 	protected static JButton updateTask;
 	protected static JButton deleteTask;
-	
-	public static Icon white;
-	public static Icon black;
-	public static URL whiteFlag;
-	public static URL blackFlag;
 	
 	
 	
@@ -233,10 +225,10 @@ public class MainFrame
 		//task flag
 		starBtn=new JButton();
 		starBtn.setBounds(392,107,44,44);
-//		starBtn.setBackground(Color.decode("#219EBC"));
+		starBtn.setBackground(Color.decode("#219EBC"));
 		starBtn.setFocusable(false);
 		starBtn.setBorder(null);
-		starBtn.setIcon(white);
+		
 		
 //		task description
 		
