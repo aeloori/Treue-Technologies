@@ -22,6 +22,8 @@ public class MultiThreadingthing  extends Thread{
 	static int endIndex;
 	static String timeTxt;
 	static LocalDateTime time;
+	static boolean startTrip=false;
+	static boolean endTrip=false;
 //	static LocalDate date;
 	
 	@Override
@@ -31,11 +33,11 @@ public class MultiThreadingthing  extends Thread{
 		{
 			try {
 //			time=LocalDateTime.now();
-			DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");  
+			DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");  
 	        String time = LocalDateTime.now().format(format);
 	        System.out.println(time);
 	        Thread.sleep(1000);
-	        if(Functionality.startDates.contains(time))
+	        if(Functionality.startDates.contains(time)&&startTrip==false)
 	        {
 	        	System.out.println("Task started");
 	        	SystemTray tray = SystemTray.getSystemTray();
@@ -48,8 +50,9 @@ public class MultiThreadingthing  extends Thread{
 	            trayIcon.setToolTip("System tray icon demo");
 	            tray.add(trayIcon);
 	            trayIcon.displayMessage("Reminder : Task "+Functionality.tasksNames.get(Functionality.startDates.indexOf(time)), Functionality.taskDescText.get(Functionality.startDates.indexOf(time)), MessageType.INFO);
+	            startTrip=true;
 	        }
-	        if(Functionality.endDates.contains(time))
+	        if(Functionality.endDates.contains(time)&&endTrip==false)
 	        {
 	        	System.out.println("Task ended");
 	        	SystemTray tray = SystemTray.getSystemTray();
@@ -62,6 +65,7 @@ public class MultiThreadingthing  extends Thread{
 	            trayIcon.setToolTip("System tray icon demo");
 	            tray.add(trayIcon);
 	            trayIcon.displayMessage("Reminder : Task Ended "+Functionality.tasksNames.get(Functionality.endDates.indexOf(time)), Functionality.taskDescText.get(Functionality.endDates.indexOf(time)), MessageType.INFO);
+	            endTrip=true;
 	        }
 	        else 
 	        {

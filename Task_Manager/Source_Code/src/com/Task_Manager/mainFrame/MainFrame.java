@@ -71,10 +71,10 @@ public class MainFrame
 	
 	
 	final protected static String[] monthsArry= {"Months","January","Febuary","March","April","May","June","July","August","September","October","November","December"};
-	final protected static String[] dateArry= {"date","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"};
+	final protected static String[] dateArry= {"date","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"};
 	final protected static String[] yearArry= {"Year","2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023","2024","2025","2026","2027","2028","2029","2030","2031"};
-	final protected static String[] hourArry= {"Hour","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","00"};
-	final protected static String[] minutesArray= {"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60"};
+	final protected static String[] hourArry= {"Hour","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","00"};
+	final protected static String[] minutesArray= {"Minutes","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60"};
 	
 	final private static Font font=new Font("Tahoma",Font.PLAIN,20);
 	final private static Font fontS=new Font("Tahoma",Font.PLAIN,14);
@@ -96,10 +96,10 @@ public class MainFrame
 //						Functionality.setInputFields();
 						setTask.setVisible(true);
 						setTask.setEnabled(true);
-//						deleteTask.setVisible(false);
-//						deleteTask.setEnabled(false);
-//						updateTask.setVisible(false);
-//						updateTask.setEnabled(false);
+						deleteTask.setVisible(false);
+						deleteTask.setEnabled(false);
+						updateTask.setVisible(false);
+						updateTask.setEnabled(false);
 						frame.add(leftPanel1);
 						frame.validate();
 						frame.repaint();
@@ -161,7 +161,8 @@ public class MainFrame
 		
 	}
 
-	final private static void initialize() {
+	
+	public static void initialize() {
 //		UIManager.put("Button.select", "#219EBC");
 		startCal=new MainFrame();
 		endCal=new MainFrame();
@@ -286,7 +287,7 @@ public class MainFrame
 		
 		//minute combo box
 		startCal.minutesList=new JComboBox<String>(minutesArray);
-		startCal.minutesList.setBounds(417, 398,73, 22);
+		startCal.minutesList.setBounds(499, 398,73, 22);
 		startCal.minutesList.setFont(fontS);
 		
 //		date of end
@@ -321,7 +322,7 @@ public class MainFrame
 		
 		//minute combo box
 		endCal.minutesList=new JComboBox<String>(minutesArray);
-		endCal.minutesList.setBounds(417, 478,73, 22);
+		endCal.minutesList.setBounds(499, 478,73, 22);
 		endCal.minutesList.setFont(fontS);
 		
 //		Ringtone

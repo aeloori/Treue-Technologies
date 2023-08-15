@@ -9,6 +9,8 @@ import java.awt.event.MouseEvent;
 import java.util.LinkedList;
 
 public class Functionality extends MainFrame{
+	
+	
 	public static LinkedList<String> tasksNames;
 	static LinkedList<String> taskDescText;
 	public static  LinkedList<String> startDates;
@@ -22,6 +24,10 @@ public class Functionality extends MainFrame{
 	static String tempStartDate;
 	static String tempEndDate;
 	static String tempRingtone;
+	static String startDate;
+	static String endDate;
+	static String temp1;
+	static String temp2;
 	
 	static int temps;
 	
@@ -39,7 +45,7 @@ public class Functionality extends MainFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(tempTaskName!=taskNameInput.getText() || tempTaskName!=taskDescBox.getText()||tempStartDate!=startDateInput.getText()||tempEndDate!=endDateInput.getText()||tempRingtone!=ringtoneInput.getText())
+				if(tempTaskName!=taskNameInput.getText() || tempTaskName!=taskDescBox.getText()||tempStartDate!=startDate||tempEndDate!=endDate||tempRingtone!=ringtoneInput.getText())
 				{
 					updateValues();
 					temps=selected;
@@ -59,8 +65,8 @@ public class Functionality extends MainFrame{
 		tasksNames.set(selected,taskNameInput.getText());
 		task.set(selected, taskNameInput.getText());
 		taskDescText.set(selected, taskDescBox.getText());
-		startDates.set(selected,startDateInput.getText());
-		endDates.set(selected, endDateInput.getText());
+//		startDates.set(selected,startDateInput.getText());
+//		endDates.set(selected, endDateInput.getText());
 		ringtones.set(selected, ringtoneInput.getText());
 	}
 
@@ -69,14 +75,22 @@ public class Functionality extends MainFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				tasksNames.remove(selected);
-				taskDescText.remove(selected);
-				startDates.remove(selected);
-				endDates.remove(selected);
-				ringtones.remove(selected);
-				
-				task.remove(selected);
-				System.out.println("\n list item Replaced with "+tasksNames.get(selected));
+				if(taskList.getSelectedIndex()!=-1)
+				{
+					tasksNames.remove(taskList.getSelectedIndex());
+					taskDescText.remove(taskList.getSelectedIndex());
+					startDates.remove(taskList.getSelectedIndex());
+					endDates.remove(taskList.getSelectedIndex());
+					ringtones.remove(taskList.getSelectedIndex());
+					
+					task.remove(taskList.getSelectedIndex());
+				}
+				else
+				{
+					System.out.println("Index out of bound "+taskList.getSelectedIndex());
+					System.out.println("Items in linkd list is "+taskDescText.size());
+				}
+//				System.out.println("\n list item Replaced with "+tasksNames.get(selected));
 			}
 		});
 	}
@@ -111,6 +125,33 @@ public class Functionality extends MainFrame{
 		ringtones=new LinkedList<String>();
 		priorities=new LinkedList<Integer>();
 	}
+	
+	public static void dateFun() {
+		temp1=getMonthNumber(startCal.monthsList.getSelectedIndex());
+		temp2=getMonthNumber(endCal.monthsList.getSelectedIndex());
+		startDate=startCal.datesList.getItemAt(startCal.datesList.getSelectedIndex())+"-"+temp1+"-"+
+				startCal.yearsList.getItemAt(startCal.yearsList.getSelectedIndex())+" "+startCal.hourList.getItemAt(startCal.hourList.getSelectedIndex())
+				+":"+startCal.minutesList.getItemAt(startCal.minutesList.getSelectedIndex());
+		
+		
+		
+		endDate=endCal.datesList.getItemAt(endCal.datesList.getSelectedIndex())+"-"+temp2+"-"+
+				endCal.yearsList.getItemAt(endCal.yearsList.getSelectedIndex())+" "+endCal.hourList.getItemAt(endCal.hourList.getSelectedIndex())
+				+":"+endCal.minutesList.getItemAt(endCal.minutesList.getSelectedIndex());
+	}
+	
+	private static String getMonthNumber(int selectedIndex) {
+		String temp="";
+		if((selectedIndex+"").length()==1)
+		{
+			temp+="0"+selectedIndex;
+		}
+		else
+		{
+			temp+=selectedIndex;
+		}
+		return temp;
+	}
 
 	public static void btnAddTask()
 		{
@@ -130,11 +171,14 @@ public class Functionality extends MainFrame{
 						
 						updateTask.setVisible(true);
 						updateTask.setEnabled(true);
+						dateFun();
 						saveDetailsList();
 						setInputFields();
 						taskList.setEnabled(true);
 						System.out.println(taskName.getText().length());
 				}
+
+				
 			});
 		}
 
@@ -142,8 +186,6 @@ public class Functionality extends MainFrame{
 		// TODO Auto-generated method stub
 		taskNameInput.setText("");
 		taskDescBox.setText("");
-		startDateInput.setText(null);
-		endDateInput.setText(null);
 		ringtoneInput.setText(null);
 	}
 	
@@ -155,10 +197,8 @@ public class Functionality extends MainFrame{
 		taskDescBox.setText(taskDescText.get(i));
 		tempTaskName=tasksNames.get(i);
 		
-		startDateInput.setText(startDates.get(i));
 		tempTaskName=tasksNames.get(i);
 		
-		endDateInput.setText(endDates.get(i));
 		tempTaskName=tasksNames.get(i);
 		
 		ringtoneInput.setText(ringtones.get(i));
@@ -169,8 +209,9 @@ public class Functionality extends MainFrame{
 		
 		tasksNames.add(taskNameInput.getText());
 		taskDescText.add(taskDescBox.getText());
-		startDates.add(startDateInput.getText());
-		endDates.add(endDateInput.getText());
+//		startDates.add(startDateInput.getText());
+		startDates.add(startDate);
+		endDates.add(endDate);
 		ringtones.add(ringtoneInput.getText());
 			
 		
