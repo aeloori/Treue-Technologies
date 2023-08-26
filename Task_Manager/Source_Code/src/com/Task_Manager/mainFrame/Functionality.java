@@ -1,12 +1,12 @@
 package com.Task_Manager.mainFrame;
 
-import java.awt.SystemTray;
-import java.awt.TrayIcon.MessageType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.LinkedList;
+
+import javax.swing.SwingUtilities;
 
 public class Functionality extends MainFrame{
 	
@@ -15,8 +15,9 @@ public class Functionality extends MainFrame{
 	static LinkedList<String> taskDescText;
 	public static  LinkedList<String> startDates;
 	static LinkedList<String> endDates;
-	static LinkedList<String> ringtones;
-	static LinkedList<Integer> priorities;
+	public static LinkedList<String> ringtones;
+	public static LinkedList<String> priorities;
+	static boolean flag;
 	static int index=0;
 	static int selected;
 	static String tempTaskName;
@@ -30,6 +31,7 @@ public class Functionality extends MainFrame{
 	static String temp2;
 	
 	static int temps;
+	public static boolean onFlag;
 	
 	public static void main()
 	{
@@ -45,7 +47,7 @@ public class Functionality extends MainFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(tempTaskName!=taskNameInput.getText() || tempTaskName!=taskDescBox.getText()||tempStartDate!=startDate||tempEndDate!=endDate||tempRingtone!=ringtoneInput.getText())
+				if(tempTaskName!=taskNameInput.getText() || tempTaskName!=taskDescBox.getText()||tempStartDate!=startDate||tempEndDate!=endDate||tempRingtone!=ringtoneInput.getItemAt(ringtoneInput.getSelectedIndex()))
 				{
 					updateValues();
 					temps=selected;
@@ -67,7 +69,7 @@ public class Functionality extends MainFrame{
 		taskDescText.set(selected, taskDescBox.getText());
 //		startDates.set(selected,startDateInput.getText());
 //		endDates.set(selected, endDateInput.getText());
-		ringtones.set(selected, ringtoneInput.getText());
+		ringtones.set(selected, ringtoneInput.getItemAt(ringtoneInput.getSelectedIndex()));
 	}
 
 	private static void delFunction() {
@@ -123,7 +125,7 @@ public class Functionality extends MainFrame{
 		startDates=new LinkedList<String>();
 		endDates=new LinkedList<String>();
 		ringtones=new LinkedList<String>();
-		priorities=new LinkedList<Integer>();
+		priorities=new LinkedList<String>();
 	}
 	
 	public static void dateFun() {
@@ -159,7 +161,7 @@ public class Functionality extends MainFrame{
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					
+						
 						task.addElement(taskNameInput.getText());
 						frame.remove(leftPanel1);
 						frame.validate();
@@ -173,6 +175,7 @@ public class Functionality extends MainFrame{
 						updateTask.setEnabled(true);
 						dateFun();
 						saveDetailsList();
+						flagFun();
 						setInputFields();
 						taskList.setEnabled(true);
 						System.out.println(taskName.getText().length());
@@ -183,14 +186,12 @@ public class Functionality extends MainFrame{
 		}
 
 	static void setInputFields() {
-		// TODO Auto-generated method stub
 		taskNameInput.setText("");
 		taskDescBox.setText("");
-		ringtoneInput.setText(null);
+		ringtoneInput.setSelectedItem(0);
 	}
 	
 	protected static void setInputFields(int i) {
-		// TODO Auto-generated method stub
 		taskNameInput.setText(tasksNames.get(i));
 		tempTaskName=tasksNames.get(i);
 		
@@ -201,8 +202,16 @@ public class Functionality extends MainFrame{
 		
 		tempTaskName=tasksNames.get(i);
 		
-		ringtoneInput.setText(ringtones.get(i));
+//		ringtoneInput.setitem(ringtones.get(i));
 		tempTaskName=tasksNames.get(i);
+		if(priorities.contains(startDates.get(i)))
+		{
+			starBtn.setIcon(BlackIconImage);
+		}
+		else
+		{
+			starBtn.setIcon(whiteIconImage);
+		}
 	}
 
 	protected static void saveDetailsList() {
@@ -212,7 +221,7 @@ public class Functionality extends MainFrame{
 //		startDates.add(startDateInput.getText());
 		startDates.add(startDate);
 		endDates.add(endDate);
-		ringtones.add(ringtoneInput.getText());
+		ringtones.add(ringtoneInput.getItemAt(ringtoneInput.getSelectedIndex()));
 			
 		
 			System.out.println("\ntaskName saved at index "+index+" is : "+tasksNames.get(index));
@@ -222,5 +231,47 @@ public class Functionality extends MainFrame{
 			System.out.println("ringtones saved at index "+index+" is : "+ringtones.get(index));
 			System.out.println();
 			index++;
+	}
+
+	public static String getStartDates() {
+		// TODO Auto-generated method stub
+		String temp;
+		if(startCal.monthsList.getSelectedIndex()<=9)
+		{
+			temp=startCal.datesList.getItemAt(startCal.datesList.getSelectedIndex())+"-"+"0"+startCal.monthsList.getSelectedIndex()+"-"+
+					startCal.yearsList.getItemAt(startCal.yearsList.getSelectedIndex())+" "+startCal.hourList.getItemAt(startCal.hourList.getSelectedIndex())
+					+":"+startCal.minutesList.getItemAt(startCal.minutesList.getSelectedIndex());
+		}
+		else
+		{
+			temp=startCal.datesList.getItemAt(startCal.datesList.getSelectedIndex())+"-"+startCal.monthsList.getSelectedIndex()+"-"+
+					startCal.yearsList.getItemAt(startCal.yearsList.getSelectedIndex())+" "+startCal.hourList.getItemAt(startCal.hourList.getSelectedIndex())
+					+":"+startCal.minutesList.getItemAt(startCal.minutesList.getSelectedIndex());
+		}
+		return temp;
+	}
+
+	public static void flagFun()
+	{	String temp=getStartDates();
+		if(onFlag==true)
+		{
+			starBtn.setIcon(BlackIconImage);
+			Functionality.priorities.add(temp);
+			if(Functionality.priorities.contains(temp))
+			{
+				System.out.println("added successfully");
+				System.out.println(temp);
+			}
+		}
+		else
+		{
+			starBtn.setIcon(whiteIconImage);
+			Functionality.priorities.remove(temp);
+			if(Functionality.priorities.contains(temp)==false)
+			{
+				System.out.println("removed successfully");
+				System.out.println(temp);
+			}
+		}
 	}
 }

@@ -4,9 +4,12 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+//import java.net.URI;
+import java.net.URL;
 
 //import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
+import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -62,24 +65,29 @@ public class MainFrame
 	
 //	ringtone set
 	protected static JLabel ringtone;
-	protected static JTextField ringtoneInput;
-	
+	protected static JComboBox<String> ringtoneInput;
 //	set task
 	protected static JButton setTask;
 	protected static JButton updateTask;
 	protected static JButton deleteTask;
 	
+	public static URL whiteIcon;
+	public static URL blackIcon;
+	public static Icon whiteIconImage;
+	public static Icon BlackIconImage;
 	
 	final protected static String[] monthsArry= {"Months","January","Febuary","March","April","May","June","July","August","September","October","November","December"};
 	final protected static String[] dateArry= {"date","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"};
 	final protected static String[] yearArry= {"Year","2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023","2024","2025","2026","2027","2028","2029","2030","2031"};
 	final protected static String[] hourArry= {"Hour","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","00"};
 	final protected static String[] minutesArray= {"Minutes","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60"};
+	final protected static String[] ringtoneArray= {"Ringtone","adventure.wav","Chime.wav","DynuTz.wav","NCS.wav","Pill.wav"};
 	
 	final private static Font font=new Font("Tahoma",Font.PLAIN,20);
 	final private static Font fontS=new Font("Tahoma",Font.PLAIN,14);
 	final private static Font fontM=new Font("Tahoma",Font.PLAIN,16);
 	final private static Font fontB=new Font("Tahoma",Font.BOLD,20);
+	public static boolean starFlag;
 	
 	final private static void addTask()
 	{
@@ -91,6 +99,8 @@ public class MainFrame
 					
 					@Override
 					public void run() {
+//						Functionality.flag=false;
+						
 						taskList.clearSelection();
 						taskList.setEnabled(false);
 //						Functionality.setInputFields();
@@ -100,10 +110,44 @@ public class MainFrame
 						deleteTask.setEnabled(false);
 						updateTask.setVisible(false);
 						updateTask.setEnabled(false);
+//						starBtn.setIcon(whiteIconImage);
 						frame.add(leftPanel1);
+						toggleStar();
 						frame.validate();
 						frame.repaint();
+						
+//						Functionality.getPriority();
+						
 //						taskList.setEnabled(true);
+					}
+
+					private void toggleStar() {
+						// TODO Auto-generated method stub
+						starFlag=false;
+						starBtn.setIcon(whiteIconImage);
+						starBtn.addActionListener(new ActionListener() {
+							
+							@Override
+							public void actionPerformed(ActionEvent e) {
+								
+								if(starFlag==false)
+								{
+									starBtn.setIcon(BlackIconImage);
+									starFlag=true;
+									System.out.println("prority button flag set to "+starFlag);
+									Functionality.onFlag=true;
+								}
+								else
+								{
+									starBtn.setIcon(whiteIconImage);
+									starFlag=false;
+									System.out.println("prority button flag set to "+starFlag);
+									Functionality.onFlag=false;
+								}
+							}
+						});
+						starBtn.validate();
+						starBtn.repaint();
 					}
 				});
 			}
@@ -241,6 +285,7 @@ public class MainFrame
 		starBtn.setBorder(null);
 		
 		
+		
 //		task description
 		
 		//label
@@ -255,8 +300,6 @@ public class MainFrame
 		taskDescBox.setBackground(Color.decode("#D9D9D9"));
 		taskDescBox.setFont(fontM);
 		taskDescBox.setBorder(null);
-		
-//		date of start
 		
 		//label
 		startDate =new JLabel();
@@ -333,12 +376,9 @@ public class MainFrame
 		ringtone.setFont(font);
 		
 		//input
-		ringtoneInput=new JTextField();
-		ringtoneInput.setBounds(215,547, 326, 44);
-		ringtoneInput.setColumns(16);
-		ringtoneInput.setBackground(Color.decode("#D9D9D9"));
-		ringtoneInput.setFont(fontM);
-		ringtoneInput.setBorder(null);
+		ringtoneInput=new JComboBox<String>(ringtoneArray);
+		ringtoneInput.setBounds(215, 547, 326, 44);
+		ringtoneInput.setFont(fontB);
 		
 //		set task button
 		setTask=new JButton("SET TASK");
